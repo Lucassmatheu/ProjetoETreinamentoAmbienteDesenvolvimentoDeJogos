@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimaçãoDeMovimentos.cpp" />
     <ClCompile Include="Criar a base do jogador.cpp" />
     <ClCompile Include="ProjetoETreinamentoAmbienteDesenvolvimentoDeJogos.cpp" />
   </ItemGroup>

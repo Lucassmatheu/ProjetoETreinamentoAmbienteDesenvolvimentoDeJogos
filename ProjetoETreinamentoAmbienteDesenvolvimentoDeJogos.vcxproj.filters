@@ -36,6 +36,9 @@
     <ClCompile Include="Criar a base do jogador.cpp">
       <Filter>src\Codigo bases Importantes</Filter>
     </ClCompile>
+    <ClCompile Include="AnimaçãoDeMovimentos.cpp">
+      <Filter>src\Codigo bases Importantes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jogo.h">

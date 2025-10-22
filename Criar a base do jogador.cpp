@@ -1,6 +1,7 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include "Movimento.h"
+#include "AnimaçãoDeMovimentos.cpp"
 
 using namespace std;
 
@@ -10,25 +11,37 @@ class Jogador
 		string nome;
 		int vida;
 		int time;
-		// Vector usado para armazenar a muni��o de cada arma do jogador.
+		// Vector usado para armazenar a munição de cada arma do jogador.
 		vector<int> municoes;
 		int armaAtual = 0;
 		vector<int> capacidadeMaxima;
+		movimentacao  Movimentacao;
+	
+   
 		
 	    
 	public:
 		Jogador(string n, int v, int t)
 			: nome(n), vida(v), time(t)
 		{
-			// Cada �ndice representa uma arma diferente (rifle, pistola, escopeta etc.).
-			// Isso permite que cada arma tenha sua pr�pria capacidade de disparos,
-			// tornando o sistema mais realista e f�cil de expandir.
+			// Cada índice representa uma arma diferente (rifle, pistola, escopeta etc.).
+			// Isso permite que cada arma tenha sua própria capacidade de disparos,
+			// tornando o sistema mais realista e fácil de expandir.
 			municoes = { 200,100,60,30, 15, 12, 5 }; 
 			capacidadeMaxima = { 200,100,60,30, 15, 12, 5 };
 		}
 		
 
 
+		void mover(char comando)
+		{
+			Movimentacao.controlar(comando);
+		}
+		void mouse(int deltaX, int deltaY) 
+		{
+			Movimentacao.moverComMouse(deltaX, deltaY);
+
+		}
 
 
 		 string getNome() const { return nome; }
@@ -38,12 +51,12 @@ class Jogador
 		 
 		 void atirar() 
 		 {
-			 // Se Muni��o da arma atual maior 0
+			 // Se Munição da arma atual maior 0
 			 if (municoes[armaAtual] > 0)
 			 {
 				 municoes[armaAtual]--;
 				 cout << nome << " disparou com a arma " << armaAtual
-					 << "! Muni��o restante: " << municoes[armaAtual] << endl;
+					 << "! Munição restante: " << municoes[armaAtual] << endl;
 				 if (municoes[armaAtual] == 0) 
 				 {
 					 recarregar();
@@ -51,7 +64,7 @@ class Jogador
 			 }
 			 else
 			 {
-				 cout << "Sem muni��o na arma " << armaAtual << "!" << endl;
+				 cout << "Sem munição na arma " << armaAtual << "!" << endl;
 			 }
 		 } 
 		 void tomarDano(int dano)
@@ -78,3 +91,21 @@ class Jogador
 
 
 };
+/*
+	🔹 SOBRE empty() e push_back():
+
+	- O método empty() é usado em vetores (std::vector) para verificar se o vetor está vazio.
+	  Retorna true se não houver nenhum elemento dentro do vetor, e false caso contrário.
+	  Exemplo:
+		  if (municoes.empty()) { cout << "Sem armas!" << endl; }
+
+	- O método push_back() adiciona um novo elemento ao final do vetor.
+	  Ele é muito usado para inserir dinamicamente valores em um vetor,
+	  principalmente quando o tamanho dele pode variar durante o jogo.
+	  Exemplo:
+		  municoes.push_back(30); // adiciona uma arma com 30 balas
+
+	💡 No contexto do jogo FPS:
+	   Você pode usar push_back() para adicionar novas armas ao inventário do jogador,
+	   e empty() para verificar se o jogador não tem nenhuma arma equipada.
+*/
