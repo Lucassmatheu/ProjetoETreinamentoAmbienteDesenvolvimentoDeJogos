@@ -1,9 +1,18 @@
 #include "Movimento.h"
+#include"Jogador.h"
+#include"Camera.h"
 #include<iostream>
+
+
+
+
 using namespace std;
 
 class movimentacao 
 {
+    Jogador* jogador;
+    cameraFPS camera;
+
 	int x, y;
 
 	public:
@@ -47,6 +56,16 @@ class movimentacao
         void moverComMouse(int mouseX, int mouseY) {
             x = mouseX;
             y = mouseY;
+            
             std::cout << "Movendo para posição do mouse: (" << x << ", " << y << ")" << std::endl;
         }
+         void ButtoneEsquerdo(int apertarButtonEsquerdo)
+         {
+             while (apertarButtonEsquerdo) {
+                 jogador->atirar();
+
+                 // Aqui você pode adicionar uma pausa ou intervalo para evitar que a função seja chamada muito rapidamente
+             }
+
+         }
 };

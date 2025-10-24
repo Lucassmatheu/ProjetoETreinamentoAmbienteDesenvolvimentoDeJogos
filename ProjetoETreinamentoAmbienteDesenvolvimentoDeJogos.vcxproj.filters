@@ -28,6 +28,9 @@
     <Filter Include="src\Codigo bases Importantes">
       <UniqueIdentifier>{159371c5-2bc0-4997-a344-2518b6f36874}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CameraFPS">
+      <UniqueIdentifier>{b4edd7e8-bf10-434a-8adf-54355d9b5908}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProjetoETreinamentoAmbienteDesenvolvimentoDeJogos.cpp">
@@ -37,6 +40,12 @@
       <Filter>src\Codigo bases Importantes</Filter>
     </ClCompile>
     <ClCompile Include="AnimaçãoDeMovimentos.cpp">
+      <Filter>src\Codigo bases Importantes</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>src\CameraFPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Projetil.cpp">
       <Filter>src\Codigo bases Importantes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +63,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Movimento.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

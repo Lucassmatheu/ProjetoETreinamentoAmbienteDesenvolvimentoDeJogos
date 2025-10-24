@@ -124,10 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimaçãoDeMovimentos.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Criar a base do jogador.cpp" />
+    <ClCompile Include="Projetil.cpp" />
     <ClCompile Include="ProjetoETreinamentoAmbienteDesenvolvimentoDeJogos.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Equipe.h" />
     <ClInclude Include="Jogador.h" />
     <ClInclude Include="Jogo.h" />

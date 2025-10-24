@@ -1,7 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
 #include "Movimento.h"
-#include "AnimaçãoDeMovimentos.cpp"
+#include"Camera.h"
+
 
 using namespace std;
 
@@ -16,7 +17,8 @@ class Jogador
 		int armaAtual = 0;
 		vector<int> capacidadeMaxima;
 		movimentacao  Movimentacao;
-	
+		cameraFPS camera;
+	    
    
 		
 	    
@@ -48,9 +50,19 @@ class Jogador
 		 int getVida() const { return vida; }
 		 int getTime() const { return time; }
 		 
+		 void ButtonEsquerdoMouse(int ButtoMouse) 
+		 {
+			 Movimentacao.ButtoneEsquerdo(ButtoMouse);
+			
+		 }
 		 
 		 void atirar() 
 		 {
+			 float dirX, dirY, dirZ;
+			 camera.GetDirecao(dirX, dirY, dirZ);
+
+			 cout << "Tiro disparado na direção: ("
+				 << dirX << ", " << dirY << ", " << dirZ << ")" << endl;
 			 // Se Munição da arma atual maior 0
 			 if (municoes[armaAtual] > 0)
 			 {
@@ -85,7 +97,12 @@ class Jogador
 
 		 };
 		 
+		 void olharComMouse(int deltaX, int deltaY) 
+		 {
+			 camera.MoverCamera(deltaX, deltaY);
 
+		 }
+		
 		 
 
 
