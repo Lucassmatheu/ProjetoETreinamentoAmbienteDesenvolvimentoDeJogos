@@ -1,71 +1,72 @@
 #include "Movimento.h"
-#include"Jogador.h"
-#include"Camera.h"
-#include<iostream>
-
-
-
+#include "Jogador.h"
+#include "Camera.h"
+#include <iostream>
 
 using namespace std;
 
-class movimentacao 
+class movimentacao
 {
     Jogador* jogador;
-    cameraFPS camera;
+    cameraPS camera;
 
-	int x, y;
+    int x, y;
 
-	public:
-        movimentacao() : x(0), y(y) {}
+public:
+    movimentacao() : x(0), y(0), jogador(nullptr) {}
 
-        void controlar(char comando)
-        {
-            switch (comando) {
-            case 'w': // mover para frente
-                cout << "Andando para frente!" << endl;
-                y += 1;
-                break;
+    void conectarJogador(Jogador* j)
+    {
+        jogador = j;
+    }
 
-            case 'a': // mover para esquerda
-                cout << "Andando para a esquerda!" << endl;
-                x -= 1;
-                break;
+    void controlar(char comando)
+    {
+        switch (comando) {
+        case 'w':
+            cout << "Andando para frente!" << endl;
+            y += 1;
+            break;
 
-            case 'd': // mover para direita
-                cout << "Andando para a direita!" << endl;
-                x += 1;
-                break;
+        case 'a':
+            cout << "Andando para a esquerda!" << endl;
+            x -= 1;
+            break;
 
-            case 's': // mover para trás
-                cout << "Andando para trás!" << endl;
-                y -= 1;
-                break;
+        case 'd':
+            cout << "Andando para a direita!" << endl;
+            x += 1;
+            break;
 
-            case 'S': // correr (Shift)
-                cout << "Correndo com SHIFT!" << endl;
-                y += 2;
-                break;
+        case 's':
+            cout << "Andando para trás!" << endl;
+            y -= 1;
+            break;
 
-            default:
-                cout << "Comando inválido!" << endl;
-            }
+        case 'S':
+            cout << "Correndo com SHIFT!" << endl;
+            y += 2;
+            break;
 
-            // Mostra posição atual
-            cout << "Posição atual: (" << x << ", " << y << ")\n";
+        default:
+            cout << "Comando inválido!" << endl;
         }
-        void moverComMouse(int mouseX, int mouseY) {
-            x = mouseX;
-            y = mouseY;
-            
-            std::cout << "Movendo para posição do mouse: (" << x << ", " << y << ")" << std::endl;
-        }
-         void ButtoneEsquerdo(int apertarButtonEsquerdo)
-         {
-             while (apertarButtonEsquerdo) {
-                 jogador->atirar();
 
-                 // Aqui você pode adicionar uma pausa ou intervalo para evitar que a função seja chamada muito rapidamente
-             }
+        cout << "Posição atual: (" << x << ", " << y << ")\n";
+    }
 
-         }
+    void moverComMouse(int mouseX, int mouseY)
+    {
+        x = mouseX;
+        y = mouseY;
+        camera.MoverCamera(mouseX, mouseY);
+
+        cout << "Movendo para posição do mouse: (" << x << ", " << y << ")" << endl;
+    }
+
+    void BotaoEsquerdo(bool segurando, float deltaTime)
+    {
+        if (jogador)
+            jogador->atualizar(segurando, deltaTime);
+    }
 };

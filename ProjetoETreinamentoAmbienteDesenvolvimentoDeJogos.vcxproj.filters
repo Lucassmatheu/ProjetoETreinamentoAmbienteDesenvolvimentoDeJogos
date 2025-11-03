@@ -31,6 +31,9 @@
     <Filter Include="src\CameraFPS">
       <UniqueIdentifier>{b4edd7e8-bf10-434a-8adf-54355d9b5908}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Codigo bases Importantes\SubClasse">
+      <UniqueIdentifier>{85583dde-889f-41a3-b4f0-ada08bfe0e1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProjetoETreinamentoAmbienteDesenvolvimentoDeJogos.cpp">
@@ -47,6 +50,21 @@
     </ClCompile>
     <ClCompile Include="Projetil.cpp">
       <Filter>src\Codigo bases Importantes</Filter>
+    </ClCompile>
+    <ClCompile Include="Arma.cpp">
+      <Filter>src\Codigo bases Importantes</Filter>
+    </ClCompile>
+    <ClCompile Include="AK47.cpp">
+      <Filter>src\Codigo bases Importantes\SubClasse</Filter>
+    </ClCompile>
+    <ClCompile Include="PistolaGlock.cpp">
+      <Filter>src\Codigo bases Importantes\SubClasse</Filter>
+    </ClCompile>
+    <ClCompile Include="M4.cpp">
+      <Filter>src\Codigo bases Importantes\SubClasse</Filter>
+    </ClCompile>
+    <ClCompile Include="MP5.cpp">
+      <Filter>src\Codigo bases Importantes\SubClasse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +84,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="ClasseArma.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

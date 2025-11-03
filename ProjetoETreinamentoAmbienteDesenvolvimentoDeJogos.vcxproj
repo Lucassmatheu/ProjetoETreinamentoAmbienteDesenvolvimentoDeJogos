@@ -123,14 +123,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AK47.cpp" />
     <ClCompile Include="AnimaçãoDeMovimentos.cpp" />
+    <ClCompile Include="Arma.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Criar a base do jogador.cpp" />
+    <ClCompile Include="M4.cpp" />
+    <ClCompile Include="MP5.cpp" />
+    <ClCompile Include="PistolaGlock.cpp" />
     <ClCompile Include="Projetil.cpp" />
     <ClCompile Include="ProjetoETreinamentoAmbienteDesenvolvimentoDeJogos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ClasseArma.h" />
     <ClInclude Include="Equipe.h" />
     <ClInclude Include="Jogador.h" />
     <ClInclude Include="Jogo.h" />

@@ -1,6 +1,5 @@
 ﻿#include<iostream>
-#include <cmath>
-#include "Jogador.h"
+
 #include"Camera.h"
 
 

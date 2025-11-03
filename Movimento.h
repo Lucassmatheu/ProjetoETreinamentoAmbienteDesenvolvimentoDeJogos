@@ -5,12 +5,12 @@
 #include <iostream>
 using namespace std;
 
-class movimentacao
+class movimentacaoJ
 {
     int x, y;
 
 public:
-    movimentacao() : x(0), y(0) {}
+    movimentacaoJ() : x(0), y(0) {}
 
     void controlar(char comando);
     void moverComMouse(int mouseX, int mouseY);

@@ -1,113 +1,122 @@
 ﻿#include <iostream>
 #include <vector>
-#include "Movimento.h"
-#include"Camera.h"
-
+#include "Camera.h"
+#include "ClasseArma.h"
 
 using namespace std;
 
 class Jogador
 {
-	private:
-		string nome;
-		int vida;
-		int time;
-		// Vector usado para armazenar a munição de cada arma do jogador.
-		vector<int> municoes;
-		int armaAtual = 0;
-		vector<int> capacidadeMaxima;
-		movimentacao  Movimentacao;
-		cameraFPS camera;
-	    
-   
-		
-	    
-	public:
-		Jogador(string n, int v, int t)
-			: nome(n), vida(v), time(t)
-		{
-			// Cada índice representa uma arma diferente (rifle, pistola, escopeta etc.).
-			// Isso permite que cada arma tenha sua própria capacidade de disparos,
-			// tornando o sistema mais realista e fácil de expandir.
-			municoes = { 200,100,60,30, 15, 12, 5 }; 
-			capacidadeMaxima = { 200,100,60,30, 15, 12, 5 };
-		}
-		
+private:
+    string nome;
+    int vida;
+    int time;
 
+    vector<Arma*> arsenal;   // Armas do jogador
+    vector<int> municoes;    // Munição atual por arma
+    vector<int> capacidadeMaxima;
 
-		void mover(char comando)
-		{
-			Movimentacao.controlar(comando);
-		}
-		void mouse(int deltaX, int deltaY) 
-		{
-			Movimentacao.moverComMouse(deltaX, deltaY);
+    int armaAtual;
 
-		}
+    cameraPS camera; 
 
+    bool gatilhoAnterior = false;
 
-		 string getNome() const { return nome; }
-		 int getVida() const { return vida; }
-		 int getTime() const { return time; }
-		 
-		 void ButtonEsquerdoMouse(int ButtoMouse) 
-		 {
-			 Movimentacao.ButtoneEsquerdo(ButtoMouse);
-			
-		 }
-		 
-		 void atirar() 
-		 {
-			 float dirX, dirY, dirZ;
-			 camera.GetDirecao(dirX, dirY, dirZ);
+public:
+    Jogador(string n, int v, int t)
+        : nome(n), vida(v), time(t), armaAtual(0)
+    {
+    }
 
-			 cout << "Tiro disparado na direção: ("
-				 << dirX << ", " << dirY << ", " << dirZ << ")" << endl;
-			 // Se Munição da arma atual maior 0
-			 if (municoes[armaAtual] > 0)
-			 {
-				 municoes[armaAtual]--;
-				 cout << nome << " disparou com a arma " << armaAtual
-					 << "! Munição restante: " << municoes[armaAtual] << endl;
-				 if (municoes[armaAtual] == 0) 
-				 {
-					 recarregar();
-				 }
-			 }
-			 else
-			 {
-				 cout << "Sem munição na arma " << armaAtual << "!" << endl;
-			 }
-		 } 
-		 void tomarDano(int dano)
-		 {
-			 vida = 100;
-			 vida -= dano;
-			 if (vida < 0) {
-				 vida = 0;
-					 cout << nome << " tomou " << dano << " de dano. Vida atual: " << vida << endl;
-			 }
-		 
-		 }
-		 void recarregar()
-		 {
-			 municoes[armaAtual] = capacidadeMaxima[armaAtual];
-			 cout << "A arma " << armaAtual << " foi recarregada." << endl;
+    void adicionarArma(Arma* arma, int balas, int capMax)
+    {
+        arsenal.push_back(arma);
+        municoes.push_back(balas);
+        capacidadeMaxima.push_back(capMax);
 
+        cout << "Pegou arma com " << balas << "/" << capMax << endl;
+    }
+    void teclaBPressionada() {
+        arsenal[armaAtual]->alternarModoDisparo();
+    }
 
-		 };
-		 
-		 void olharComMouse(int deltaX, int deltaY) 
-		 {
-			 camera.MoverCamera(deltaX, deltaY);
+    void trocarArma(int indice)
+    {
+        if (indice >= 0 && indice < arsenal.size())
+        {
+            armaAtual = indice;
+            cout << "Arma trocada para índice " << armaAtual << endl;
+        }
+        else
+        {
+            cout << "Arma inválida!" << endl;
+        }
+    }
 
-		 }
-		
-		 
+    void atualizar(bool gatilhoSegurado, float deltaTime)
+    {
+        float dirX, dirY, dirZ;
+        camera.GetDirecao(dirX, dirY, dirZ);
 
+        bool gatilhoApertado = (gatilhoSegurado && !gatilhoAnterior);
+        gatilhoAnterior = gatilhoSegurado;
 
+        if (municoes[armaAtual] <= 0)
+        {
+            cout << "Sem munição! Recarregando..." << endl;
+            recarregar();
+            return;
+        }
 
+        bool disparou = arsenal[armaAtual]->tentarDisparar(
+            gatilhoSegurado,
+            gatilhoApertado,
+            deltaTime,
+            dirX, dirY, dirZ);
+
+        if (disparou)
+        {
+            municoes[armaAtual]--;
+
+            cout << "Tiro! Munição: "
+                << municoes[armaAtual] << "/"
+                << capacidadeMaxima[armaAtual] << endl;
+
+            // ✅ RECOIL aplicado ao disparo 🔥
+            camera.MoverCamera(0, -5);
+
+            if (municoes[armaAtual] == 0)
+                recarregar();
+        }
+    }
+
+    void recarregar()
+    {
+        municoes[armaAtual] = capacidadeMaxima[armaAtual];
+        cout << "Recarregado: "
+            << municoes[armaAtual] << "/"
+            << capacidadeMaxima[armaAtual] << endl;
+    }
+
+    void olharComMouse(int dx, int dy)
+    {
+        camera.MoverCamera(dx, dy);
+    }
+
+    void tomarDano(int dano)
+    {
+        vida -= dano;
+        if (vida < 0) vida = 0;
+
+        cout << nome << " tomou " << dano << " de dano! Vida atual: " << vida << endl;
+    }
+
+    string getNome() const { return nome; }
+    int getVida() const { return vida; }
+    int getTime() const { return time; }
 };
+
+
 /*
 	🔹 SOBRE empty() e push_back():
 
